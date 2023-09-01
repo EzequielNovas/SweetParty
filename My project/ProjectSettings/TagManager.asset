@@ -12,6 +12,8 @@ TagManager:
   - SalmonDot
   - TeaDot
   - YellowDot
+  - Color
+  - Breakable
   layers:
   - Default
   - TransparentFX

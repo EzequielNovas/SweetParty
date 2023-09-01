@@ -98,7 +98,8 @@ public class FindMatches : MonoBehaviour
 
     private IEnumerator FindAllMatchesCo()
     {
-        yield return new WaitForSeconds(.2f);
+        //yield return new WaitForSeconds(.2f);
+        yield return null;
         for (int i = 0; i < board.width; i++)
         {
             for (int j = 0; j < board.height; j++)
@@ -114,23 +115,19 @@ public class FindMatches : MonoBehaviour
 
                         GameObject rightDot = board.allDots[i + 1, j];
 
-
                         if (leftDot != null && rightDot != null)
                         {
                             Dot rightDotDot = rightDot.GetComponent<Dot>();
                             Dot leftDotDot = leftDot.GetComponent<Dot>();
                             if (leftDot.tag == currentDot.tag && rightDot.tag == currentDot.tag)
                             {
-
                                 currentMatches.Union(IsRowBomb(leftDotDot, currentDotDot, rightDotDot));
 
                                 currentMatches.Union(IsColumnBomb(leftDotDot, currentDotDot, rightDotDot));
 
                                 currentMatches.Union(IsAdjacentBomb(leftDotDot, currentDotDot, rightDotDot));
 
-
                                 GetNearbyPieces(leftDot, currentDot, rightDot);
-
                             }
                         }
 
@@ -149,25 +146,19 @@ public class FindMatches : MonoBehaviour
                             Dot upDotDot = upDot.GetComponent<Dot>();
                             if (upDot.tag == currentDot.tag && downDot.tag == currentDot.tag)
                             {
-
                                 currentMatches.Union(IsColumnBomb(upDotDot, currentDotDot, downDotDot));
 
                                 currentMatches.Union(IsRowBomb(upDotDot, currentDotDot, downDotDot));
 
                                 currentMatches.Union(IsAdjacentBomb(upDotDot, currentDotDot, downDotDot));
 
-
                                 GetNearbyPieces(upDot, currentDot, downDot);
-
                             }
                         }
                     }
-
-
                 }
             }
         }
-
     }
 
     public void MatchPiecesOfColor(string color)
@@ -200,8 +191,11 @@ public class FindMatches : MonoBehaviour
                 //Check if the piece is inside the board
                 if (i >= 0 && i < board.width && j >= 0 && j < board.height)
                 {
-                    dots.Add(board.allDots[i, j]);
-                    board.allDots[i, j].GetComponent<Dot>().isMatched = true;
+                    if (board.allDots[i, j] != null)
+                    {
+                        dots.Add(board.allDots[i, j]);
+                        board.allDots[i, j].GetComponent<Dot>().isMatched = true;
+                    }
                 }
             }
         }
@@ -215,8 +209,14 @@ public class FindMatches : MonoBehaviour
         {
             if (board.allDots[column, i] != null)
             {
+                Dot dot = board.allDots[column, i].GetComponent<Dot>();
+                if (dot.isRowBomb)
+                {
+                    dots.Union(GetRowPieces(i)).ToList();
+                }
+
                 dots.Add(board.allDots[column, i]);
-                board.allDots[column, i].GetComponent<Dot>().isMatched = true;
+                dot.isMatched = true;
             }
         }
         return dots;
@@ -229,20 +229,25 @@ public class FindMatches : MonoBehaviour
         {
             if (board.allDots[i, row] != null)
             {
+                Dot dot = board.allDots[i, row].GetComponent<Dot>();
+                if (dot.isColumnBomb)
+                {
+                    dots.Union(GetColumnPieces(i)).ToList();
+                }
                 dots.Add(board.allDots[i, row]);
-                board.allDots[i, row].GetComponent<Dot>().isMatched = true;
+                dot.isMatched = true;
             }
         }
         return dots;
     }
 
-    public void CheckBombs()
+    public void CheckBombs(MatchType matchType)
     {
         //Did the player move something?
         if (board.currentDot != null)
         {
             //Is the piece they moved matched?
-            if (board.currentDot.isMatched)
+            if (board.currentDot.isMatched && board.currentDot.tag == matchType.color)
             {
                 //make it unmatched
                 board.currentDot.isMatched = false;
@@ -272,7 +277,7 @@ public class FindMatches : MonoBehaviour
             {
                 Dot otherDot = board.currentDot.otherDot.GetComponent<Dot>();
                 //Is the other Dot matched?
-                if (otherDot.isMatched)
+                if (otherDot.isMatched && otherDot.tag == matchType.color)
                 {
                     //Make it unmatched
                     otherDot.isMatched = false;
