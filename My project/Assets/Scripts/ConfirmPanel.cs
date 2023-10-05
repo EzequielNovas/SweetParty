@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.Playables;
 
 public class ConfirmPanel : MonoBehaviour
 {
@@ -20,10 +17,7 @@ public class ConfirmPanel : MonoBehaviour
     public Image[] stars;
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI starText;
-
-
-
-    // Use this for initialization
+    public GameObject LevelSelectPanel;
     void OnEnable()
     {
         gameData = FindObjectOfType<GameData>();
@@ -49,23 +43,16 @@ public class ConfirmPanel : MonoBehaviour
 
     void ActivateStars()
     {
-        //COME BACK TO THIS WHEN THE BINARY FILE IS DONE!!!
         for (int i = 0; i < starsActive; i++)
         {
             stars[i].enabled = true;
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void Cancel()
     {
 
         this.gameObject.SetActive(false);
+        LevelSelectPanel.SetActive(true);
     }
 
     public void Play()
@@ -74,5 +61,4 @@ public class ConfirmPanel : MonoBehaviour
         PlayerPrefs.SetInt("Current Level", level - 1);
         SceneManager.LoadScene(levelToLoad);
     }
-
 }

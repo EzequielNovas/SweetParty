@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +7,6 @@ public class BackToMenu : MonoBehaviour
     public string sceneToLoad;
     private GameData gameData;
     private Board board;
-
     public void WinOK()
     {
         if (gameData != null)
@@ -20,21 +17,11 @@ public class BackToMenu : MonoBehaviour
         SceneManager.LoadScene(sceneToLoad);
     }
 
-    public void LoseOK()
-    {
-        SceneManager.LoadScene(sceneToLoad);
-    }
+    public void LoseOK() => SceneManager.LoadScene(sceneToLoad);
 
-    // Use this for initialization
     void Start()
     {
         gameData = FindObjectOfType<GameData>();
         board = FindObjectOfType<Board>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

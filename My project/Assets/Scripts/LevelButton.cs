@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 using TMPro;
 using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-
     [Header("Active Stuff")]
     public bool isActive;
     public Sprite activeSprite;
@@ -21,11 +17,8 @@ public class LevelButton : MonoBehaviour
     public TextMeshProUGUI levelText;
     public int level;
     public GameObject confirmPanel;
-
-
+    public GameObject LevelSelectPanel;
     private GameData gameData;
-
-    // Use this for initialization
     void Start()
     {
         gameData = FindObjectOfType<GameData>();
@@ -80,21 +73,11 @@ public class LevelButton : MonoBehaviour
         }
     }
 
-    void ShowLevel()
-    {
-        levelText.text = "" + level;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    void ShowLevel() => levelText.text = "" + level;
     public void ConfirmPanel(int level)
     {
         confirmPanel.GetComponent<ConfirmPanel>().level = level;
         confirmPanel.SetActive(true);
-
+        LevelSelectPanel.SetActive(false);
     }
 }

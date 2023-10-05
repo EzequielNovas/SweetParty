@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public enum GameType
 {
@@ -18,19 +16,15 @@ public class EndGameRequirements
 
 public class EndGameManager : MonoBehaviour
 {
-
-
     public GameObject movesLabel;
     public GameObject timeLabel;
     public GameObject youWinPanel;
     public GameObject tryAgainPanel;
-    public Text counter;
+    public TextMeshProUGUI counter;
     public EndGameRequirements requirements;
     public int currentCounterValue;
     private Board board;
     private float timerSeconds;
-
-    // Use this for initialization
     void Start()
     {
         board = FindObjectOfType<Board>();
@@ -54,7 +48,6 @@ public class EndGameManager : MonoBehaviour
 
     void SetupGame()
     {
-
         currentCounterValue = requirements.counterValue;
         if (requirements.gameType == GameType.Moves)
         {
@@ -81,9 +74,7 @@ public class EndGameManager : MonoBehaviour
                 LoseGame();
             }
         }
-
     }
-
     public void WinGame()
     {
         youWinPanel.SetActive(true);

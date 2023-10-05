@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6265473139296624819}
   - component: {fileID: 7290012415521650186}
   - component: {fileID: 5101129514102345378}
+  - component: {fileID: 1668041554}
   m_Layer: 0
   m_Name: OrangeDot
   m_TagString: OrangeDot
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7ec1531da9ecd5d49a1287b303440389, type: 3}
+  m_Sprite: {fileID: 1522913579, guid: 904a1673708ac8740b4861873388a41e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,5 +131,26 @@ MonoBehaviour:
   isAdjacentBomb: 0
   adjacentMarker: {fileID: 2289590277147961772, guid: 56dd67b594c989a4d9a08a33682326c7, type: 3}
   rowArrow: {fileID: 816014676233763335, guid: 03fd1c42e9a4b1c4786c1b993590fce1, type: 3}
-  columnArrow: {fileID: 8430905276763014776, guid: 4afb6592a399ae24d8060b7c235402dd, type: 3}
+  columnArrow: {fileID: 8109336177123855581, guid: 4afb6592a399ae24d8060b7c235402dd, type: 3}
   colorBomb: {fileID: 6692328034548091770, guid: 9aa153e73b74cb2479b7aa81947ab51f, type: 3}
+--- !u!95 &1668041554
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492033644219745812}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c0f17e097bee17d4bba6602129df8a68, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

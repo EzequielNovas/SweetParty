@@ -5,21 +5,11 @@ using System.Linq;
 
 public class FindMatches : MonoBehaviour
 {
-
     private Board board;
     public List<GameObject> currentMatches = new List<GameObject>();
+    void Start() => board = FindObjectOfType<Board>();
 
-    // Use this for initialization
-    void Start()
-    {
-        board = FindObjectOfType<Board>();
-    }
-
-    public void FindAllMatches()
-    {
-        StartCoroutine(FindAllMatchesCo());
-    }
-
+    public void FindAllMatches() => StartCoroutine(FindAllMatchesCo());
     private List<GameObject> IsAdjacentBomb(Dot dot1, Dot dot2, Dot dot3)
     {
         List<GameObject> currentDots = new List<GameObject>();
@@ -46,16 +36,19 @@ public class FindMatches : MonoBehaviour
         if (dot1.isRowBomb)
         {
             currentMatches.Union(GetRowPieces(dot1.row));
+            board.BombRow(dot1.row);
         }
 
         if (dot2.isRowBomb)
         {
             currentMatches.Union(GetRowPieces(dot2.row));
+            board.BombRow(dot2.row);
         }
 
         if (dot3.isRowBomb)
         {
             currentMatches.Union(GetRowPieces(dot3.row));
+            board.BombRow(dot3.row);
         }
         return currentDots;
     }
@@ -66,16 +59,19 @@ public class FindMatches : MonoBehaviour
         if (dot1.isColumnBomb)
         {
             currentMatches.Union(GetColumnPieces(dot1.column));
+            board.BombColumn(dot1.column);
         }
 
         if (dot2.isColumnBomb)
         {
             currentMatches.Union(GetColumnPieces(dot2.column));
+            board.BombColumn(dot2.column);
         }
 
         if (dot3.isColumnBomb)
         {
             currentMatches.Union(GetColumnPieces(dot3.column));
+            board.BombColumn(dot3.column);
         }
         return currentDots;
     }
@@ -95,11 +91,8 @@ public class FindMatches : MonoBehaviour
         AddToListAndMatch(dot2);
         AddToListAndMatch(dot3);
     }
-
     private IEnumerator FindAllMatchesCo()
     {
-        //yield return new WaitForSeconds(.2f);
-        yield return null;
         for (int i = 0; i < board.width; i++)
         {
             for (int j = 0; j < board.height; j++)
@@ -130,7 +123,6 @@ public class FindMatches : MonoBehaviour
                                 GetNearbyPieces(leftDot, currentDot, rightDot);
                             }
                         }
-
                     }
 
                     if (j > 0 && j < board.height - 1)
@@ -138,7 +130,6 @@ public class FindMatches : MonoBehaviour
                         GameObject upDot = board.allDots[i, j + 1];
 
                         GameObject downDot = board.allDots[i, j - 1];
-
 
                         if (upDot != null && downDot != null)
                         {
@@ -159,6 +150,7 @@ public class FindMatches : MonoBehaviour
                 }
             }
         }
+        yield return null;
     }
 
     public void MatchPiecesOfColor(string color)
@@ -221,7 +213,6 @@ public class FindMatches : MonoBehaviour
         }
         return dots;
     }
-
     List<GameObject> GetRowPieces(int row)
     {
         List<GameObject> dots = new List<GameObject>();
@@ -240,7 +231,6 @@ public class FindMatches : MonoBehaviour
         }
         return dots;
     }
-
     public void CheckBombs(MatchType matchType)
     {
         //Did the player move something?
@@ -251,25 +241,13 @@ public class FindMatches : MonoBehaviour
             {
                 //make it unmatched
                 board.currentDot.isMatched = false;
-                //Decide what kind of bomb to make
-                /*
-                int typeOfBomb = Random.Range(0, 100);
-                if(typeOfBomb < 50){
-                    //Make a row bomb
-                    board.currentDot.MakeRowBomb();
-                }else if(typeOfBomb >= 50){
-                    //Make a column bomb
-                    board.currentDot.MakeColumnBomb();
-                }
-                */
-                if ((board.currentDot.swipeAngle > -45 && board.currentDot.swipeAngle <= 45)
-                   || (board.currentDot.swipeAngle < -135 || board.currentDot.swipeAngle >= 135))
+                if ((board.currentDot.swipeAngle > -45 && board.currentDot.swipeAngle <= 45) || (board.currentDot.swipeAngle < -135 || board.currentDot.swipeAngle >= 135))
                 {
-                    board.currentDot.MakeRowBomb();
+                    board.currentDot.MakeColumnBomb();
                 }
                 else
                 {
-                    board.currentDot.MakeColumnBomb();
+                    board.currentDot.MakeRowBomb();
                 }
             }
             //Is the other piece matched?
@@ -281,33 +259,17 @@ public class FindMatches : MonoBehaviour
                 {
                     //Make it unmatched
                     otherDot.isMatched = false;
-                    /*
-                    //Decide what kind of bomb to make
-                    int typeOfBomb = Random.Range(0, 100);
-                    if (typeOfBomb < 50)
+                    if ((board.currentDot.swipeAngle > -45 && board.currentDot.swipeAngle <= 45) || (board.currentDot.swipeAngle < -135 || board.currentDot.swipeAngle >= 135))
                     {
-                        //Make a row bomb
-                        otherDot.MakeRowBomb();
-                    }
-                    else if (typeOfBomb >= 50)
-                    {
-                        //Make a column bomb
                         otherDot.MakeColumnBomb();
-                    }
-                    */
-                    if ((board.currentDot.swipeAngle > -45 && board.currentDot.swipeAngle <= 45)
-                   || (board.currentDot.swipeAngle < -135 || board.currentDot.swipeAngle >= 135))
-                    {
-                        otherDot.MakeRowBomb();
                     }
                     else
                     {
-                        otherDot.MakeColumnBomb();
+                        otherDot.MakeRowBomb();
                     }
                 }
             }
 
         }
     }
-
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraScalar : MonoBehaviour
@@ -20,7 +18,6 @@ public class CameraScalar : MonoBehaviour
             RepositionCamera(board.width - 1, board.height - 1);
         }
     }
-
     void RepositionCamera(float x, float y)
     {
         Vector3 tempPosition = new Vector3(x / 2, y / 2 + yOffset, cameraOffset);
@@ -31,10 +28,7 @@ public class CameraScalar : MonoBehaviour
         }
         else
         {
-            Camera.main.orthographicSize = board.height / 2 + padding;
+            Camera.main.orthographicSize = (board.height / 2 + padding) + 2 * yOffset;
         }
     }
-
-
-
 }

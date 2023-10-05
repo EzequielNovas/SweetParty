@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using System;
 using System.IO;
@@ -18,8 +17,6 @@ public class GameData : MonoBehaviour
 
     public static GameData gameData;
     public SaveData saveData;
-
-    // Use this for initialization
     void Awake()
     {
         if (gameData == null)
@@ -32,11 +29,6 @@ public class GameData : MonoBehaviour
             Destroy(this.gameObject);
         }
         Load();
-    }
-
-    private void Start()
-    {
-
     }
 
     public void Save()
@@ -59,7 +51,6 @@ public class GameData : MonoBehaviour
         file.Close();
 
         Debug.Log("Saved");
-
     }
 
     public void Load()
@@ -84,19 +75,7 @@ public class GameData : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
-    {
-        Save();
-    }
+    private void OnApplicationQuit() => Save();
 
-    private void OnDisable()
-    {
-        Save();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    private void OnDisable() => Save();
 }

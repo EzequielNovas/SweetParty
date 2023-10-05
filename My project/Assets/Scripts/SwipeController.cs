@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SwipeController : MonoBehaviour
 {
-
     public Vector2 firstPosition;
     private Vector2 secondPosition;
     public Vector2 moveDirection;

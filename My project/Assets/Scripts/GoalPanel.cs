@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,15 +8,10 @@ public class GoalPanel : MonoBehaviour
     public Sprite thisSprite;
     public TextMeshProUGUI thisText;
     public string thisString;
-    void Start()
-    {
-        SetUp();
-    }
-
+    void Start() => SetUp();
     void SetUp()
     {
         thisImage.sprite = thisSprite;
         thisText.text = thisString;
     }
-
 }

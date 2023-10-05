@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,12 +16,12 @@ public class GoalManager : MonoBehaviour
     public BlankGoal[] levelGoals;
     public List<GoalPanel> currentGoals = new List<GoalPanel>();
     public GameObject goalPrefab;
+    public GameObject goalPrefab2;
     public GameObject goalIntroParent;
     public GameObject goalGameParent;
     private Board board;
     private EndGameManager endGame;
 
-    // Use this for initialization
     void Start()
     {
         board = FindObjectOfType<Board>();
@@ -30,7 +29,6 @@ public class GoalManager : MonoBehaviour
         GetGoals();
         SetupGoals();
     }
-
     void GetGoals()
     {
         if (board != null)
@@ -65,7 +63,7 @@ public class GoalManager : MonoBehaviour
             panel.thisString = "0/" + levelGoals[i].numberNeeded;
 
             //Create a new Goal Panel at the goalGameParent position
-            GameObject gameGoal = Instantiate(goalPrefab, goalGameParent.transform.position, Quaternion.identity);
+            GameObject gameGoal = Instantiate(goalPrefab2, goalGameParent.transform.position, Quaternion.identity);
             gameGoal.transform.SetParent(goalGameParent.transform);
             panel = gameGoal.GetComponent<GoalPanel>();
             currentGoals.Add(panel);

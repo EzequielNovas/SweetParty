@@ -1,24 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HintManager : MonoBehaviour
 {
-
     private Board board;
     public float hintDelay;
     private float hintDelaySeconds;
     public GameObject hintParticle;
     public GameObject currentHint;
-
-    // Use this for initialization
     void Start()
     {
         board = FindObjectOfType<Board>();
         hintDelaySeconds = hintDelay;
     }
 
-    // Update is called once per frame
     void Update()
     {
         hintDelaySeconds -= Time.deltaTime;
@@ -27,7 +22,6 @@ public class HintManager : MonoBehaviour
             MarkHint();
             hintDelaySeconds = hintDelay;
         }
-
     }
 
     //First, I want to find all possible matches on the board
@@ -52,7 +46,6 @@ public class HintManager : MonoBehaviour
                         if (board.SwitchAndCheck(i, j, Vector2.up))
                         {
                             possibleMoves.Add(board.allDots[i, j]);
-
                         }
                     }
                 }
@@ -75,11 +68,11 @@ public class HintManager : MonoBehaviour
     //Create the hint behind the chosen match
     private void MarkHint()
     {
-        GameObject move = PickOneRandomly();
-        if (move != null)
-        {
-            currentHint = Instantiate(hintParticle, move.transform.position, Quaternion.identity);
-        }
+      GameObject move = PickOneRandomly();
+      if (move != null)
+      {
+         currentHint = Instantiate(hintParticle, move.transform.position, Quaternion.identity);
+      }
     }
     //Destroy the hint.
     public void DestroyHint()
